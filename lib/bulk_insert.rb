@@ -11,16 +11,16 @@ module BulkInsert
       worker = BulkInsert::Worker.new(connection, table_name, columns, set_size)
 
       if values.present?
-        transaction do
+        # transaction do
           worker.add_all(values)
           worker.save!
-        end
+        # end
         nil
       elsif block_given?
-        transaction do
+        # transaction do
           yield worker
           worker.save!
-        end
+        # end
         nil
       else
         worker
